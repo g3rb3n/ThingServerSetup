@@ -1,0 +1,33 @@
+#!/bin/bash
+
+export ADMIN_PASSWORD="admin"
+
+PACKAGES="node-red mosquitto grafana influxdb grafana-plugins node-red-influxdb"
+
+apt update
+
+for package in $PACKAGES
+do
+  if [ -e $package/preinstall ]; then
+    echo $package/preinstall
+    $package/preinstall
+  fi
+done
+
+apt upgrade
+
+for package in $PACKAGES
+do
+  if [ -e $package/install ]; then
+    echo $package/install
+    $package/install
+  fi
+done
+
+for package in $PACKAGES
+do
+  if [ -e $package/postinstall ]; then
+    echo $package/postinstall
+    $package/postinstall
+  fi
+done

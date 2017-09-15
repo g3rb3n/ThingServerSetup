@@ -1,0 +1,4 @@
+#!/bin/bash
+
+apt-get -y install mosquitto mosquitto-clients
+add-apt-repository ppa:certbot/certbot

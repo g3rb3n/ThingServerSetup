@@ -1,0 +1,4 @@
+#!/bin/bash
+
+apt-get -y install nodejs
+npm install -g --unsafe-perm node-red node-red-admin

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+###
+#
+###
+
+echo "use nodered
+db.createUser(
+  {
+    user: \"$USER\",
+    pwd: \"$PASSWORD\",
+    roles: [
+       { role: \"readWrite\", db: \"nodered\" }
+    ]
+  }
+)" | mongo

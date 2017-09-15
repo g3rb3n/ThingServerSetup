@@ -1,0 +1,52 @@
+#!/bin/bash
+
+PLATFORM="orangepipc"
+PLATFORM2="Orangepipc"
+ARMBIAN="Armbian_5.30"
+OS="Ubuntu_xenial_default"
+VERSION="3.4.113"
+FILE="${ARMBIAN}_${PLATFORM2}_${OS}_${VERSION}"
+ZIP="$FILE.7z"
+IMG="$FILE.img"
+CARD=mmcblk0
+
+#This is another option for downloading, gets the latest version
+#wget https://dl.armbian.com/$PLATFORM/$OS.7z
+
+#https://dl.armbian.com/orangepipc/archive/Armbian_5.30_Orangepipc_Ubuntu_xenial_default_3.4.113.7z
+if [ ! -d img ]; then
+  mkdir img
+fi
+cd img
+if [ ! -f $IMG ]; then
+  echo "$IMG does not exist"
+fi
+if [ ! -f $ZIP ]; then
+  echo "$ZIP does not exist"
+fi
+
+if [ ! -f $ZIP ]; then
+  wget https://dl.armbian.com/$PLATFORM/archive/$ZIP
+fi
+if [ ! -f $IMG ]; then
+  7z e $ZIP
+fi
+if [ ! -f $ZIP ]; then
+  wget https://dl.armbian.com/$PLATFORM/archive/$ZIP
+fi
+
+gpg --keyserver pgp.mit.edu --recv-key 9F0E78D5
+gpg --verify $IMG.asc
+
+##This does not work somehow, img has good signature, image on sd is same as original...
+#sudo dd if=$IMG of=/dev/$CARD bs=4M conv=fsync status=progress
+#sync
+#dd bs=4M if=/dev/${CARD} of=check.img
+#truncate --reference $IMG check.img
+#diff -s check.img $IMG
+
+## This also does not work, /dev/$CARD is not recognized...
+#sudo sh -c "export PATH=$PATH:/opt/etcher-cli && etcher -d /dev/$CARD -y ${FILE}.img"
+#cd ..
+
+etcher-electron

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#This does not work
+#grafana-cli admin reset-admin-password --homepath "/usr/share/grafana" $ADMIN_PASSWORD

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# The standard debian grafana package does not provide grafana-cli 
+#apt-get -y install grafana
+
+apt install libfontconfig
+apt-get -yf install
+dpkg -i grafana_4.3.2_armhf.deb

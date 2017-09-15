@@ -1,0 +1,15 @@
+#!/bin/bash
+
+##This does not work
+PASSWORD=`echo "$ADMIN_PASSWORD" | node-red-admin hash-pw`
+PASSWORD=${PASSWORD:9}
+
+echo $ADMIN_PASSWORD
+PASSWORD=`echo "$ADMIN_PASSWORD" | node-red-admin hash-pw`
+echo $PASSWORD
+PASSWORD=${PASSWORD:10}
+echo $PASSWORD
+sed -i.bak s/password:.*/password:\"$PASSWORD\",/g /home/nodered/.node-red/settings.js
+tail /home/nodered/.node-red/settings.js
+
+systemctl restart node-red
