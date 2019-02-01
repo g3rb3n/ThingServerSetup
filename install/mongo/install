@@ -1,0 +1,17 @@
+
+###
+#
+###
+
+apt install mongodb
+npm install node-red-node-mongodb
+echo "use nodered
+db.createUser(
+  {
+    user: \"$USER\",
+    pwd: \"$PASSWORD\",
+    roles: [
+       { role: \"readWrite\", db: \"nodered\" }
+    ]
+  }
+)" | mongo

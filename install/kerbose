@@ -1,0 +1,8 @@
+ktpass -princ HTTP/nodered.outoftheblox.com@OUTOFTHEBLOX.COM -mapuser gerben@OUTOFTHEBLOX.COM -pass ditiseentestwachtwoord -crypto RC4-HMAC-NT -ptype KRB5_NT_PRINCIPAL -out /etc/kerberos.keytab
+
+ktutil
+addent -password -p gerben@OUTOFTHEBLOX.COM -k 1 -e RC4-HMAC
+addent -password -p HTTP/nodered.outoftheblox.com@OUTOFTHEBLOX.COM -k 1 -e RC4-HMAC
+
+- enter password for username -
+wkt username.keytab

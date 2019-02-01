@@ -1,0 +1,6 @@
+
+
+apt update
+
+apt-get -y install mosquitto mosquitto-clients
+apt-get -y install certbot

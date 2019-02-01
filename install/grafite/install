@@ -1,0 +1,7 @@
+
+apt-get install graphite-web graphite-carbon
+apt-get install postgresql libpq-dev python-psycopg2
+echo "CREATE USER graphite WITH PASSWORD 'password';" | sudo -u postgres psql
+echo "CREATE DATABASE graphite WITH OWNER graphite;" | sudo -u postgres psql
+
+ npm install node-red-contrib-graphite

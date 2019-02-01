@@ -1,0 +1,43 @@
+#!/bin/bash
+
+###
+# This is a completely scripted version
+# See: https://www.digitalocean.com/community/tutorials/how-to-connect-your-internet-of-things-with-node-red-on-ubuntu-16-04
+###
+
+apt update
+apt upgrade
+
+apt install nodejs-legacy
+apt install npm
+npm install -g --unsafe-perm node-red node-red-admin
+
+USER="nodered"
+PASSWORD="nodered"
+
+useradd $USER -s /bin/bash -m
+echo $USER:$PASSWORD | chpasswd
+
+echo "[Unit]
+Description=Node-RED
+After=syslog.target network.target
+
+[Service]
+ExecStart=/usr/local/bin/node-red-pi --max-old-space-size=128 -v
+Restart=on-failure
+KillSignal=SIGINT
+
+# log output to syslog as 'node-red'
+SyslogIdentifier=node-red
+StandardOutput=syslog
+
+# non-root user to run as
+WorkingDirectory=/home/$USER/
+User=$USER
+Group=$USER
+
+[Install]
+WantedBy=multi-user.target" > /etc/systemd/system/node-red.service
+
+systemctl enable node-red
+systemctl start node-red
